@@ -3,6 +3,12 @@ Refresh of [Community Knowledge Profiles](https://www.sheffield.gov.uk/your-city
 
 Tasks are identified, assigned, and maintained via the project Kanban board [@ckp-kanban](https://github.com/orgs/scc-pi/projects/2). 
 
+## Analytical pipeline  
+
+![ckp](ckp-pipeline.drawio.svg)  
+
+<a href="https://app.diagrams.net/#Hscc-pi%2Fcommunity-knowledge-profiles%2Fmain%2Fckp-pipeline.drawio.svg" target="_blank">Edit in diagrams.net</a>
+
 ## RAP  
 
 We will look to apply [RAP (Reproducible Analytical Pipeline) principles](https://nhsdigital.github.io/rap-community-of-practice/introduction_to_RAP/levels_of_RAP/#baseline-rap-getting-the-fundamentals-right). This includes:  
