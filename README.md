@@ -15,3 +15,6 @@ We will look to apply [RAP (Reproducible Analytical Pipeline) principles](https:
 
 * Data is handled and output in a [Tidy data format](https://medium.com/analytics-vidhya/untidy-data-a90b6e3ebe4c).  
 * Code adheres to agreed coding standards (e.g [The tidyverse style guide](https://style.tidyverse.org/) for R).
+
+## Licence
+The codebase is released under the MIT Licence. HTML and Markdown documentation is © Crown copyright and available under the terms of the [Open Government 3.0](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/) licence.
