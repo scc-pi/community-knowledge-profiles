@@ -1,0 +1,61 @@
+---
+title: "BME Profile"
+format: 
+  pdf:
+    echo: false
+editor: visual
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(here)
+library(tidyverse)
+
+# Disable scientific notation
+options(scipen=999) 
+
+# Load CKP data frames
+load(here("pipeline", "processed", "ckp.RData"))
+```
+
+## Population
+
+```{r}
+#| label: bme-pct
+
+bme_pct <- 100 - ethnic_group |> 
+  filter(category == "White") |> 
+  select(sheffield) |> 
+  pull()
+```
+The BME community comprises `r bme_pct`% of the Sheffield population.
+
+## Ethnic Groups
+
+```{r}
+#| label: ethnic-groups
+#| warnings: false
+
+ethnic_group |> 
+  mutate(category = str_wrap(category, width = 30)) |> 
+  mutate(category = fct_reorder(category, sheffield)) |> 
+  ggplot(aes(x = category, y = sheffield)) +
+    geom_bar(stat="identity") +
+    geom_text(
+      aes(label = str_c(sheffield, "%")), 
+      hjust = -0.1,
+      size = 3
+    ) +
+    scale_y_continuous(
+      limits = c(0, 100),
+      labels = scales::percent_format(scale = 1),
+      breaks = c(0, 20, 40, 60, 80, 100)
+    ) +
+    xlab("Ethnic group") +
+    ylab("Percentage of Sheffield population") +
+    coord_flip() +
+    theme_light()
+```
+
