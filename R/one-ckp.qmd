@@ -30,7 +30,10 @@ bme_pct <- 100 - ethnic_group |>
   select(sheffield) |> 
   pull()
 ```
+
 The BME community comprises `r bme_pct`% of the Sheffield population.
+
+This is a trial change
 
 ## Ethnic Groups
 
@@ -58,4 +61,3 @@ ethnic_group |>
     coord_flip() +
     theme_light()
 ```
-
