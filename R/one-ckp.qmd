@@ -35,6 +35,8 @@ The BME community comprises `r bme_pct`% of the Sheffield population.
 
 This is a trial change
 
+This is another change
+
 ## Ethnic Groups
 
 ```{r}
