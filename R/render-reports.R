@@ -5,7 +5,7 @@ library(furrr)
 # CREDIT:  Carlos I. Rodriguez
 # https://www.carlosivanrodriguez.com/guides/workflow/parameterized-and-parallelized-quarto-reports/
 
-render_reports <- function(community_name){
+render_report <- function(community_name){
 
   # Create new name for Quarto (.qmd) copy
   community_qmd <- here("R", str_c("report-layout-", community_name, ".qmd"))
@@ -17,7 +17,7 @@ render_reports <- function(community_name){
     overwrite = TRUE
   )
 
-  # Change working directory to "/output" so the PDFs land there
+  # Change working directory to "/output" so the PDF lands there
   setwd(here("output"))
 
   # Render report (.pdf) using Quarto copy
@@ -40,5 +40,5 @@ plan(cluster, workers = 3)
 # Iterate through our different communities
 # TODO: Swap sample Iris dataset and different "species",
 #       for our CKP dataset and different "communities"
-as.character(unique(iris$Species)) %>%
-  future_walk(~ render_reports(.x))
+as.character(unique(iris$Species)) |>
+  future_walk(~ render_report(.x))
