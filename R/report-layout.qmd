@@ -1,0 +1,31 @@
+---
+title: "Community Knowledge Profile"
+format: 
+  pdf:
+    echo: false
+    message: false
+    warning: false
+editor: visual
+params: 
+  community: ""
+---
+  
+```{r}
+#| label: setup
+#| include: false
+
+library(tidyverse)
+
+df <- iris |>  
+  filter(Species == params$community)
+```
+
+```{r}
+#| label: vis
+
+df %>% 
+  filter(Species == params$community) |>  
+  ggplot(aes(Sepal.Width)) +
+    geom_histogram() +
+    ggtitle(str_c("Distribution of Sepal.Length for ", params$community))
+```
