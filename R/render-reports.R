@@ -17,14 +17,18 @@ render_reports <- function(community_name){
     overwrite = TRUE
   )
 
+  # Change working directory to "/output" so the PDFs land there
+  setwd(here("output"))
+
   # Render report (.pdf) using Quarto copy
-  # TODO: Use Quarto "projects" to render to a different folder i.e. \output
-  # https://quarto.org/docs/projects/quarto-projects.html
   quarto::quarto_render(
     input = community_qmd,
     execute_params = list(community = community_name),
     output_file = str_c("report-for-", community_name, ".pdf")
   )
+
+  # Reset working directory
+  setwd(here())
 
   # Remove Quarto copy
   file.remove(community_qmd)
