@@ -24,7 +24,7 @@ render_report <- function(community_name){
   quarto::quarto_render(
     input = community_qmd,
     execute_params = list(community = community_name),
-    output_file = str_c("report-for-", community_name, ".pdf")
+    output_file = str_c("report_for_", community_name, ".pdf")
   )
 
   # Reset working directory
@@ -34,11 +34,12 @@ render_report <- function(community_name){
   file.remove(community_qmd)
 }
 
+# Load ONS data frames
+load(here("pipeline", "processed", "ons.RData"))
+
 # Set options and cores for parallel processing
 plan(cluster, workers = 3)
 
 # Iterate through our different communities
-# TODO: Swap sample Iris dataset and different "species",
-#       for our CKP dataset and different "communities"
-as.character(unique(iris$Species)) |>
+as.character(unique(community$community_code)) |>
   future_walk(~ render_report(.x))

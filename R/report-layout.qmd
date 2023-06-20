@@ -9,23 +9,33 @@ editor: visual
 params: 
   community: ""
 ---
-  
+
 ```{r}
 #| label: setup
 #| include: false
 
+library(here)
 library(tidyverse)
 
-df <- iris |>  
-  filter(Species == params$community)
+# Disable scientific notation
+options(scipen=999) 
+
+load(here("pipeline", "processed", "ons.RData"))
+
+df <- get(params$community)
+# df <- get("gender_identity") # use for testing 
 ```
 
 ```{r}
 #| label: vis
 
-df %>% 
-  filter(Species == params$community) |>  
-  ggplot(aes(Sepal.Width)) +
-    geom_histogram() +
-    ggtitle(str_c("Distribution of Sepal.Length for ", params$community))
+df |> 
+  mutate(category = str_wrap(category, width = 30)) |> 
+  mutate(category = fct_reorder(category, observation)) |> 
+  ggplot(aes(category, observation)) +
+    geom_bar(stat = "identity") +
+    ggtitle(str_c("", params$community)) +
+    coord_flip() +
+    theme_light()
+  
 ```
