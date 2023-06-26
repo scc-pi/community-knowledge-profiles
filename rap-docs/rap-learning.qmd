@@ -52,7 +52,7 @@ And, the following [Reproducible Analysis Platform](https://analysisfunction.civ
 
 Our CKP project is hosted in a public GitHub repo, so our preferred option would be [GitHub Codespaces](https://docs.github.com/en/codespaces).  
 
-Codespaces does integrate with IDE's other than VS Code. However, the example from David Smith at the 2022 RStudio Conference, only manages this via a VS Code port. We were able to replicate this for the [community-knowledge-profiles](https://github.com/scc-pi/community-knowledge-profiles) repo by simply copying the `.devcontainer` directory from David's example. This proved neither slick nor robust to changes, and as there's an RStudio Cloud option we didn't spend long trying to improve this.
+Codespaces does integrate with IDE's other than VS Code. However, the example from David Smith at the 2022 RStudio Conference, only manages this via a VS Code port. We were able to replicate this for the [community-knowledge-profiles](https://github.com/scc-pi/community-knowledge-profiles) repo by simply copying the `.devcontainer` directory from David's example. This proved neither slick nor robust to changes, and as there's an Posit Cloud option we didn't spend long trying to improve this.
 
 ## Posit Cloud & renv
 
