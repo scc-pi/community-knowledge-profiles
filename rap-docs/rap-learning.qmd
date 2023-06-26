@@ -86,7 +86,7 @@ Codespaces does integrate with IDE's other than VS Code. However, the example fr
 
 ## Docker
 
-?? Rocker
+?? [Rocker](https://rocker-project.org/)
 
 ?? Development Environments preview
 
