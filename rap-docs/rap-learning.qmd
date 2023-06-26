@@ -27,14 +27,63 @@ The project has several factors that make it suitable for understanding RAP bett
 
 The expectation that the notes in this document will mature and reside outside a pipeline specific repo and in a Council resource, such as [pinsheff](https://scc-pi.github.io/pinsheff/), a [Methods Manual](https://scc-pi.github.io/methods-manual/), or something like [Hackney's Data Platform Playbook](https://playbook.hackney.gov.uk/Data-Platform-Playbook/). 
 
-# Containers
+# Containers  
+
+The code in a repo may not work in a year's time if a new version or R introduces some breaking changes. It might not work if some of the packages that the code in the repo depends on evolve and introduce some breaking changes. Similarly, if you're collaborating on a project and a colleague may have different versions of the packages or R, and consequently you may get different results from the same code. 
+
+There are different ways of improving the reproducibility of code by specifying the dependencies (including versions) of what the code runs on. Containers is one option, an option that can also make other aspects easier, such as maintaining development environments, peer review, testing, deploying to the cloud for more computing power, and deploying to production.  
+
+One of the requirements of the [NHS Silver RAP Maturity Level - implementing best practice](https://nhsdigital.github.io/rap-community-of-practice/introduction_to_RAP/levels_of_RAP/#the-levels-of-rap-maturity-framework) is:  
+
+> Repository includes dependency information (e.g. [requirements.txt](https://pip.pypa.io/en/stable/user_guide/#requirements-files), [PipFile](https://github.com/pypa/pipfile/blob/main/README.rst), [environment.yml](https://nhsdigital.github.io/rap-community-of-practice/training_resources/python/virtual-environments/conda/)).
+
+Another option for R is [renv](https://rstudio.github.io/renv/articles/renv.html).
+
+The Government's Analytical Services guidance includes the following [RAP Principle](https://analysisfunction.civilservice.gov.uk/policy-store/reproducible-analytical-pipelines-strategy/#section-12):  
+
+> Dependency management.
+
+And, the following [Reproducible Analysis Platform](https://analysisfunction.civilservice.gov.uk/policy-store/reproducible-analytical-pipelines-strategy/#section-13):  
+
+> Reproducible infrastructure and containers, for example, [docker](https://docs.docker.com/get-started/overview/).
 
 
-# Version Control
+## Codespaces  
+
+Our CKP project is hosted in a public GitHub repo, so our preferred option would be [GitHub Codespaces](https://docs.github.com/en/codespaces).  
+
+Codespaces does integrate with IDE's other than VS Code. However, the example from David Smith at the 2022 RStudio Conference, only manages this via a VS Code port. We were able to replicate this for the [community-knowledge-profiles](https://github.com/scc-pi/community-knowledge-profiles) repo by simply copying the `.devcontainer` directory from David's example. This proved neither slick nor robust to changes, and as there's an RStudio Cloud option we didn't spend long trying to improve this.
+
+## Posit Cloud & renv
+
+Posit Cloud was formerly called RStudio Cloud. You can login to [https://posit.cloud](https://posit.cloud/) using your GitHub account, which makes working with GitHub repos easier.  
+
+Followed the [workflow](https://rstudio.github.io/renv/articles/renv.html#workflow) in renv Getting Started. 
+
+[collaborating](https://rstudio.github.io/renv/articles/collaborating.html)
+
+
+## Docker
+
+?? Rocker
+
+?? Development Environments preview
+
+## Dev Box
+
+[Microsoft Dev Box](https://azure.microsoft.com/en-ca/products/dev-box/) is an interesting option that could fit well with our projects that use PID and have repos on Azure DevOps. 
+
 
 
 # CI/CD  
 
 
 # Code Reviews
+
+
+
+# Version Control
+
+
+
 

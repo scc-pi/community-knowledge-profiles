@@ -1,2 +1,4 @@
+^renv$
+^renv\.lock$
 ^community-knowledge-profiles\.Rproj$
 ^\.Rproj\.user$
