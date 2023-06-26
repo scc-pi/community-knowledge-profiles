@@ -1,0 +1,40 @@
+---
+title: "CKP RAP Learning"
+author: "Laurie Platt"
+date: last-modified
+date-format: "[Last updated ] DD MMMM, YYYY"
+format:
+  html:
+    code-tools: true
+    self-contained: true
+    code-fold: true
+    toc: true
+    toc-location: left
+    number-sections: true
+execute:
+  warning: false
+---
+
+# Introduction
+
+This document will capture the RAP (Reproducible Analytical Pipeline) learning from the CKP (Community Knowledge Profile) project.  
+
+The project has several factors that make it suitable for understanding RAP better:  
+
+1. The data is open source, so data security considerations aren't paramount.  
+2. The project involves multiple data analysts.  
+3. The pipeline is not particularly complex.  
+
+The expectation that the notes in this document will mature and reside outside a pipeline specific repo and in a Council resource, such as [pinsheff](https://scc-pi.github.io/pinsheff/), a [Methods Manual](https://scc-pi.github.io/methods-manual/), or something like [Hackney's Data Platform Playbook](https://playbook.hackney.gov.uk/Data-Platform-Playbook/). 
+
+# Containers
+
+
+# Version Control
+
+
+# CI/CD  
+
+
+# Code Reviews
+
