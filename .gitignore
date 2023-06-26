@@ -51,3 +51,6 @@ rsconnect/
 # RStudio project files
 *.Rproj
 .Rproj.user
+community-knowledge-profiles.Rcheck/
+community-knowledge-profiles*.tar.gz
+community-knowledge-profiles*.tgz
