@@ -47,21 +47,42 @@ And, the following [Reproducible Analysis Platform](https://analysisfunction.civ
 
 > Reproducible infrastructure and containers, for example, [docker](https://docs.docker.com/get-started/overview/).
 
+## Posit Cloud & renv
+
+You can login to [https://posit.cloud](https://posit.cloud/) (formerly RStudio Cloud) using your GitHub account, which makes working with GitHub repos easier.  
+
+To setup Posit Cloud for CKP, 
+
+1. create a *New Project* > *New Project from Git Repository*:  
+
+    ![](../resources/new-project.png)
+
+2. Add the HTTPS URL for our repo:  
+
+    `https://github.com/scc-pi/community-knowledge-profiles.git`
+
+3. From the RStudio terminal call `renv::restore()`. This will install the necessary packages into your Posit Cloud RStudio project. It can take twenty or thirty minutes, but only for the first time as part of setting up the project.  
+
+4. Setup your GitHub PAT for HTTPS as per Jenny Bryan's instructions:  
+
+    [https://happygitwithr.com/https-pat.html#tldr](https://happygitwithr.com/https-pat.html#tldr)  
+
+This process isn't as slick as we'd like for people new to R. Ideally we'd authorise their use of a cloud based development environment for the project and pass them a URL. You can't really do this with Posit Cloud without paying. 
+
+You can [share and collaborate](https://posit.cloud/learn/guide#collaborate) within a Posit Cloud Space. However, the time spent by others in a project you created is registered against your time. You only have 25 hours a month on the [Posit Cloud free plan](https://posit.cloud/plans), so best to save this for code reviews etc.   
+
+This Posit Cloud setup makes use of the `renv` R package which handles project level package management, as opposed to the normal system or user level package management. We made use of the following renv guidance in particular:  
+
+* [Workflow](https://rstudio.github.io/renv/articles/renv.html#workflow)
+* [Collaborating](https://rstudio.github.io/renv/articles/collaborating.html)
+
+If you add or remove packages from the CKP project (in a repo on your laptop or in Posit Cloud) you need to update the `renv.lock` file by calling `renv::snapshot()`. Then stage, commit, and push your `renv.lock` change to the CKP repo. If a change to `renv.lock` is pulled, you need to call `renv::restore()` to install or remove the packages.    
 
 ## Codespaces  
 
 Our CKP project is hosted in a public GitHub repo, so our preferred option would be [GitHub Codespaces](https://docs.github.com/en/codespaces).  
 
 Codespaces does integrate with IDE's other than VS Code. However, the example from David Smith at the 2022 RStudio Conference, only manages this via a VS Code port. We were able to replicate this for the [community-knowledge-profiles](https://github.com/scc-pi/community-knowledge-profiles) repo by simply copying the `.devcontainer` directory from David's example. This proved neither slick nor robust to changes, and as there's an Posit Cloud option we didn't spend long trying to improve this.
-
-## Posit Cloud & renv
-
-Posit Cloud was formerly called RStudio Cloud. You can login to [https://posit.cloud](https://posit.cloud/) using your GitHub account, which makes working with GitHub repos easier.  
-
-Followed the [workflow](https://rstudio.github.io/renv/articles/renv.html#workflow) in renv Getting Started. 
-
-[collaborating](https://rstudio.github.io/renv/articles/collaborating.html)
-
 
 ## Docker
 
