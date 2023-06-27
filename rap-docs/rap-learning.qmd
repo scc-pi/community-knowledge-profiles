@@ -55,6 +55,8 @@ Instead, we used [create_package()](https://usethis.r-lib.org/reference/create_p
 
 # Containers  
 
+Our motivation was to create a GitHub Codespace, or something like it, for the project. To allow the project to be used by anyone interested in starting to use R and contribute to the work. To pass them a URL that opened a development environment in their browser, with everything setup and ready for them to code. We haven't succeeded in this yet, but the notes in this section include some useful reproducibility lessons.  
+
 The code in the CKP repo may not work in a year's time if a new version or R introduces some breaking changes. It might not work if some of the packages that the code in the repo depends on evolve and introduce some breaking changes. Similarly, if you're collaborating on a project, a colleague may have different versions of the packages or R, and consequently you may get different results from the same code. 
 
 There are different ways of improving the reproducibility of code by specifying the dependencies (including versions) of what the code runs on. Containers is one option, an option that can also make other aspects easier, such as maintaining development environments, peer review, testing, deploying to the cloud for more computing power, and deploying to production.  
@@ -72,6 +74,12 @@ The Government's Analytical Services guidance includes the following [RAP Princi
 And, the following [Reproducible Analysis Platform](https://analysisfunction.civilservice.gov.uk/policy-store/reproducible-analytical-pipelines-strategy/#section-13):  
 
 > Reproducible infrastructure and containers, for example, [docker](https://docs.docker.com/get-started/overview/).
+
+## Codespaces  
+
+Our CKP project is hosted in a public GitHub repo, so our preferred option would be [GitHub Codespaces](https://docs.github.com/en/codespaces).  
+
+Codespaces does integrate with IDE's other than VS Code. However, the example from David Smith at the 2022 RStudio Conference, only manages this via a VS Code port. We were able to replicate this for the [community-knowledge-profiles](https://github.com/scc-pi/community-knowledge-profiles) repo by simply copying the `.devcontainer` directory from David's example. This proved neither slick nor robust to changes, and as there's a Posit Cloud option we didn't spend long trying to improve this.
 
 ## Posit Cloud & renv
 
@@ -103,12 +111,6 @@ This Posit Cloud setup makes use of the `renv` R package which handles project l
 * [Collaborating](https://rstudio.github.io/renv/articles/collaborating.html)
 
 If you add or remove packages from the CKP project (in a repo on your laptop or in Posit Cloud) you need to update the `renv.lock` file by calling `renv::snapshot()`. Then stage, commit, and push your `renv.lock` change to the CKP repo. If a change to `renv.lock` is pulled, you need to call `renv::restore()` to install or remove the packages.    
-
-## Codespaces  
-
-Our CKP project is hosted in a public GitHub repo, so our preferred option would be [GitHub Codespaces](https://docs.github.com/en/codespaces).  
-
-Codespaces does integrate with IDE's other than VS Code. However, the example from David Smith at the 2022 RStudio Conference, only manages this via a VS Code port. We were able to replicate this for the [community-knowledge-profiles](https://github.com/scc-pi/community-knowledge-profiles) repo by simply copying the `.devcontainer` directory from David's example. This proved neither slick nor robust to changes, and as there's a Posit Cloud option we didn't spend long trying to improve this.
 
 ## Docker
 
