@@ -27,6 +27,10 @@ The project has several factors that make it suitable for understanding RAP bett
 
 The expectation is that the notes in this document will mature and reside outside a pipeline specific repo and in a Council-wide resource such as [pinsheff](https://scc-pi.github.io/pinsheff/), a [Methods Manual](https://scc-pi.github.io/methods-manual/), or something like [Hackney's Data Platform Playbook](https://playbook.hackney.gov.uk/Data-Platform-Playbook/). 
 
+# Packaging  
+
+*TODO*
+
 # Containers  
 
 The code in the CKP repo may not work in a year's time if a new version or R introduces some breaking changes. It might not work if some of the packages that the code in the repo depends on evolve and introduce some breaking changes. Similarly, if you're collaborating on a project, a colleague may have different versions of the packages or R, and consequently you may get different results from the same code. 
@@ -86,6 +90,8 @@ Codespaces does integrate with IDE's other than VS Code. However, the example fr
 
 ## Docker
 
+*TODO*
+
 ?? [Rocker](https://rocker-project.org/)
 
 ?? Development Environments preview
@@ -93,6 +99,12 @@ Codespaces does integrate with IDE's other than VS Code. However, the example fr
 ## Dev Box
 
 [Microsoft Dev Box](https://azure.microsoft.com/en-ca/products/dev-box/) is an interesting option that could fit well with our projects that use PID and have repos on Azure DevOps. 
+
+## Further Resources
+
+[Ch.10 Basic reproducibility: freezing packages](https://raps-with-r.dev/repro_intro.html), Building reproducible analytical pipelines with R by Bruno Rodrigues  
+
+[Ch.14 Reproducible analytical pipelines with Docker](https://raps-with-r.dev/repro_cont.html), Building reproducible analytical pipelines with R by Bruno Rodrigues
 
 # CI/CD  
 
@@ -110,16 +122,40 @@ And, the following [Reproducible Analysis Platform](https://analysisfunction.civ
 
 ## Render RAP Learning Quarto
 
-Render RAP Learning Quarto to GitHub Pages.
+To render the RAP Learning Quarto (`rap-docs\rap-learning.qmd`) to GitHub Pages at [scc-pi.github.io/community-knowledge-profiles](https://scc-pi.github.io/community-knowledge-profiles/) we used the public GitHub repo [quarto-dev/quarto-actions](https://github.com/quarto-dev/quarto-actions), In particular we followed the:
+
+1. [Basic example](https://github.com/quarto-dev/quarto-actions/blob/main/examples/example-01-basics.md)  
+    Added `quarto-publish.yml` to `.github\workflows`.
+
+    i) We had to specify the .qmd file when doing the one time local `quarto publish` :  
+        `quarto publish gh-pages rap-docs\rap-learning.qmd.qmd`  
+      Otherwise we got an error like:  
+          `ERROR: The specified path (C:\repo\community-knowledge-profiles) is not a website or book project so cannot be published.`  
+    
+    ii) Added a `.gitignore` file in `\rap-docs` with `*.html` to exclude local renderings.
+
+1. [Non top level projects example](https://github.com/quarto-dev/quarto-actions/blob/main/examples/example-05-non-top-level.md)  
+    Added `path: rap-docs` to our `quarto-publish.yml` file.
 
 ## Render CKP PDFs
 
+*TODO*
+
+## Further Resources
+
+[GitHub Actions documentation](https://docs.github.com/en/actions)  
+
+[Publish Quarto to GitHub Pages](https://quarto.org/docs/publishing/github-pages.html)
+
+[Ch.15 Continuous integration and continuous deployment](https://raps-with-r.dev/ci_cd.html), Building reproducible analytical pipelines with R by Bruno Rodrigues
+
+
 # Code Reviews
 
-
+*TODO*
 
 # Version Control
 
-
+*TODO*
 
 
