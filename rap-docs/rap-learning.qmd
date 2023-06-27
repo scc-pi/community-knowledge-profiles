@@ -25,11 +25,11 @@ The project has several factors that make it suitable for understanding RAP bett
 2. The project involves multiple data analysts.  
 3. The pipeline is not particularly complex.  
 
-The expectation that the notes in this document will mature and reside outside a pipeline specific repo and in a Council resource, such as [pinsheff](https://scc-pi.github.io/pinsheff/), a [Methods Manual](https://scc-pi.github.io/methods-manual/), or something like [Hackney's Data Platform Playbook](https://playbook.hackney.gov.uk/Data-Platform-Playbook/). 
+The expectation is that the notes in this document will mature and reside outside a pipeline specific repo and in a Council-wide resource such as [pinsheff](https://scc-pi.github.io/pinsheff/), a [Methods Manual](https://scc-pi.github.io/methods-manual/), or something like [Hackney's Data Platform Playbook](https://playbook.hackney.gov.uk/Data-Platform-Playbook/). 
 
 # Containers  
 
-The code in a repo may not work in a year's time if a new version or R introduces some breaking changes. It might not work if some of the packages that the code in the repo depends on evolve and introduce some breaking changes. Similarly, if you're collaborating on a project and a colleague may have different versions of the packages or R, and consequently you may get different results from the same code. 
+The code in the CKP repo may not work in a year's time if a new version or R introduces some breaking changes. It might not work if some of the packages that the code in the repo depends on evolve and introduce some breaking changes. Similarly, if you're collaborating on a project, a colleague may have different versions of the packages or R, and consequently you may get different results from the same code. 
 
 There are different ways of improving the reproducibility of code by specifying the dependencies (including versions) of what the code runs on. Containers is one option, an option that can also make other aspects easier, such as maintaining development environments, peer review, testing, deploying to the cloud for more computing power, and deploying to production.  
 
@@ -51,19 +51,19 @@ And, the following [Reproducible Analysis Platform](https://analysisfunction.civ
 
 You can login to [https://posit.cloud](https://posit.cloud/) (formerly RStudio Cloud) using your GitHub account, which makes working with GitHub repos easier.  
 
-To setup Posit Cloud for CKP, 
+To setup Posit Cloud for CKP: 
 
-1. create a *New Project* > *New Project from Git Repository*:  
+1. Create a *New Project* > *New Project from Git Repository*.  
 
     ![](../resources/new-project.png)
 
-2. Add the HTTPS URL for our repo:  
+2. Add the HTTPS URL for our repo.  
 
     `https://github.com/scc-pi/community-knowledge-profiles.git`
 
 3. From the RStudio terminal call `renv::restore()`. This will install the necessary packages into your Posit Cloud RStudio project. It can take twenty or thirty minutes, but only for the first time as part of setting up the project.  
 
-4. Setup your GitHub PAT for HTTPS as per Jenny Bryan's instructions:  
+4. Setup your GitHub PAT for HTTPS as per Jenny Bryan's instructions.  
 
     [https://happygitwithr.com/https-pat.html#tldr](https://happygitwithr.com/https-pat.html#tldr)  
 
@@ -82,7 +82,7 @@ If you add or remove packages from the CKP project (in a repo on your laptop or 
 
 Our CKP project is hosted in a public GitHub repo, so our preferred option would be [GitHub Codespaces](https://docs.github.com/en/codespaces).  
 
-Codespaces does integrate with IDE's other than VS Code. However, the example from David Smith at the 2022 RStudio Conference, only manages this via a VS Code port. We were able to replicate this for the [community-knowledge-profiles](https://github.com/scc-pi/community-knowledge-profiles) repo by simply copying the `.devcontainer` directory from David's example. This proved neither slick nor robust to changes, and as there's an Posit Cloud option we didn't spend long trying to improve this.
+Codespaces does integrate with IDE's other than VS Code. However, the example from David Smith at the 2022 RStudio Conference, only manages this via a VS Code port. We were able to replicate this for the [community-knowledge-profiles](https://github.com/scc-pi/community-knowledge-profiles) repo by simply copying the `.devcontainer` directory from David's example. This proved neither slick nor robust to changes, and as there's a Posit Cloud option we didn't spend long trying to improve this.
 
 ## Docker
 
@@ -94,10 +94,25 @@ Codespaces does integrate with IDE's other than VS Code. However, the example fr
 
 [Microsoft Dev Box](https://azure.microsoft.com/en-ca/products/dev-box/) is an interesting option that could fit well with our projects that use PID and have repos on Azure DevOps. 
 
-
-
 # CI/CD  
 
+A requirement of the [NHS Gold RAP - analysis as a product](https://nhsdigital.github.io/rap-community-of-practice/introduction_to_RAP/levels_of_RAP/#the-levels-of-rap-maturity-framework) is:  
+
+> Repository automatically runs tests etc. via [CI](https://github.com/skills/test-with-actions)/CD or a different integration/deployment tool e.g. [GitHub Actions](https://docs.github.com/en/actions).
+
+The Government's Analytical Services guidance includes the following [RAP Principle](https://analysisfunction.civilservice.gov.uk/policy-store/reproducible-analytical-pipelines-strategy/#section-12):  
+
+> Continuous integration.
+
+And, the following [Reproducible Analysis Platform](https://analysisfunction.civilservice.gov.uk/policy-store/reproducible-analytical-pipelines-strategy/#section-13):  
+
+> Continuous integration tools, for example, GitHub Actions, GitLab CI, Travis CI, Jenkins, Concourse.
+
+## Render RAP Learning Quarto
+
+Render RAP Learning Quarto to GitHub Pages.
+
+## Render CKP PDFs
 
 # Code Reviews
 
