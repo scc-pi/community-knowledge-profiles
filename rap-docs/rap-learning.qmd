@@ -22,14 +22,36 @@ This document will capture the RAP (Reproducible Analytical Pipeline) learning f
 The project has several factors that make it suitable for understanding RAP better:  
 
 1. The data is open source, so data security considerations aren't paramount.  
-2. The project involves multiple data analysts.  
+2. The project involves collaboration between data analysts.  
 3. The pipeline is not particularly complex.  
 
 The expectation is that the notes in this document will mature and reside outside a pipeline specific repo and in a Council-wide resource such as [pinsheff](https://scc-pi.github.io/pinsheff/), a [Methods Manual](https://scc-pi.github.io/methods-manual/), or something like [Hackney's Data Platform Playbook](https://playbook.hackney.gov.uk/Data-Platform-Playbook/). 
 
 # Packaging  
 
-*TODO*
+A requirement of the [NHS Gold RAP - analysis as a product](https://nhsdigital.github.io/rap-community-of-practice/introduction_to_RAP/levels_of_RAP/#the-levels-of-rap-maturity-framework) is:  
+
+> Code is fully [packaged](https://packaging.python.org/en/latest/).
+
+The Government's Analytical Services guidance includes the following [RAP Principle](https://analysisfunction.civilservice.gov.uk/policy-store/reproducible-analytical-pipelines-strategy/#section-12):  
+
+> Packaging.
+
+## Templates
+
+We first looked at the repository template:  
+[github.com/craig-shenton/rapR-package-template](https://github.com/craig-shenton/rapR-package-template)  
+
+However, this was too complex for a simple project that already involved learning for contributors around ggplot, version control etc.  
+
+Instead, we used [create_package()](https://usethis.r-lib.org/reference/create_package.html) function from the `usethis` R package and ran:  
+`usethis::create_package(here::here(), check_name = FALSE)`
+
+## Further Resources
+
+[Ch.11 Packaging your code](https://raps-with-r.dev/packages.html), Building reproducible analytical pipelines with R by Bruno Rodrigues  
+
+[R Packages (2e)](https://r-pkgs.org/), by Hadley Wickham and Jennifer Bryan
 
 # Containers  
 
