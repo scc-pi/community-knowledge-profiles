@@ -1,0 +1,41 @@
+---
+title: "Community Knowledge Profile"
+format: 
+  pdf:
+    echo: false
+    message: false
+    warning: false
+editor: visual
+params: 
+  community: ""
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(here)
+library(tidyverse)
+
+# Disable scientific notation
+options(scipen=999) 
+
+load(here("pipeline", "processed", "ons.RData"))
+
+df <- get(params$community)
+# df <- get("gender_identity") # use for testing 
+```
+
+```{r}
+#| label: vis
+
+df |> 
+  mutate(category = str_wrap(category, width = 30)) |> 
+  mutate(category = fct_reorder(category, observation)) |> 
+  ggplot(aes(category, observation)) +
+    geom_bar(stat = "identity") +
+    ggtitle(str_c("", params$community)) +
+    coord_flip() +
+    theme_light()
+  
+```
