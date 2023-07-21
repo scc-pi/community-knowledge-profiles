@@ -43,6 +43,12 @@ jobs:
       - name: Add system libcurl package 
         run: sudo apt-get install -y libcurl4-openssl-dev
         
+      - name: Add system harfbuzz package 
+        run: sudo apt-get install -y libharfbuzz-dev
+        
+      - name: Add system fribidi package 
+        run: sudo apt-get install -y libfribidi-pdev
+        
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
         
