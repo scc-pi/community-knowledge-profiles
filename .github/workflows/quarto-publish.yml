@@ -39,7 +39,10 @@ jobs:
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
-      
+        
+      - name: Add system libcurl package 
+        run: sudo apt-get install -y libcurl4-openssl-dev
+        
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
         
