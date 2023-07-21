@@ -57,7 +57,7 @@ Instead, we used [create_package()](https://usethis.r-lib.org/reference/create_p
 
 Our motivation was to create a GitHub Codespace, or something like it, for the project. To allow the project to be used by anyone interested in starting to use R and contribute to the work. To pass them a URL that opened a development environment in their browser, with everything setup and ready for them to code. We haven't succeeded in this yet, but the notes in this section include some useful reproducibility lessons.  
 
-The code in the CKP repo may not work in a year's time if a new version or R introduces some breaking changes. It might not work if some of the packages that the code in the repo depends on evolve and introduce some breaking changes. Similarly, if you're collaborating on a project, a colleague may have different versions of the packages or R, and consequently you may get different results from the same code. 
+The code in the CKP repo may not work in a year's time if a new version of R introduces breaking changes. It might not work if some of the packages that the code in the repo depends on evolve and introduce some breaking changes. Similarly, if you're collaborating on a project, a colleague may have different versions of the packages or R, and consequently you may get different results from the same code. 
 
 There are different ways of improving the reproducibility of code by specifying the dependencies (including versions) of what the code runs on. Containers is one option, an option that can also make other aspects easier, such as maintaining development environments, peer review, testing, deploying to the cloud for more computing power, and deploying to production.  
 
@@ -105,12 +105,16 @@ This process isn't as slick as we'd like for people new to R. Ideally we'd autho
 
 You can [share and collaborate](https://posit.cloud/learn/guide#collaborate) within a Posit Cloud Space. However, the time spent by others in a project you created is registered against your time. You only have 25 hours a month on the [Posit Cloud free plan](https://posit.cloud/plans), so best to save this for code reviews etc.   
 
-This Posit Cloud setup makes use of the `renv` R package which handles project level package management, as opposed to the normal system or user level package management. We made use of the following renv guidance in particular:  
+This Posit Cloud setup makes use of the {renv} R package which handles project level package management, as opposed to the normal system or user level package management. We made use of the following renv guidance in particular:  
 
 * [Workflow](https://rstudio.github.io/renv/articles/renv.html#workflow)
 * [Collaborating](https://rstudio.github.io/renv/articles/collaborating.html)
 
 If you add or remove packages from the CKP project (in a repo on your laptop or in Posit Cloud) you need to update the `renv.lock` file by calling `renv::snapshot()`. Then stage, commit, and push your `renv.lock` change to the CKP repo. If a change to `renv.lock` is pulled, you need to call `renv::restore()` to install or remove the packages.    
+
+{renv} also integrates with RStudio Packages pane:  
+
+![](../resources/renv-rstudio.png)
 
 ## Docker
 

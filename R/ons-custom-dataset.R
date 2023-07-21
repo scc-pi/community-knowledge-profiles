@@ -164,16 +164,41 @@ categories <- get_categories()
 
 sheffield <- "E08000019"
 
+# Workshop example ----
+# https://api.beta.ons.gov.uk/v1/population-types/UR/census-observations?dimensions=economic_activity_status_7a,health_in_general&area-type=msoa,E02006961,E02006962,E02006963
+
+# dimensions = "economic_activity_status_7a,health_in_general"
+# area_type = "msoa,E02006961,E02006962,E02006963"
+# response = get(
+#   f"https://api.beta.ons.gov.uk/v1/population-types/UR/census-observations?dimensions={dimensions}&area-type={area_type}"
+# )
+
+workshop_url <- "https://api.beta.ons.gov.uk/v1/population-types/UR/census-observations?dimensions=economic_activity_status_7a,health_in_general&area-type=msoa,E02006961,E02006962,E02006963"
+
+# workshop_data <- url_to_df(workshop_url)
+
+workshop_data <- request(workshop_url) |>
+  req_perform() |>
+  resp_body_json() |>
+  as_tibble() |>
+  select("items") |>
+  unnest_wider("items")
+
+
+# Example from slides Dan C passed on -----
+get_census_dataset <- function(
+    population_type_name = all_usual_residents,
+    area_type_id = lower_tier_las,
+    area_id = sheffield,
+    variable_id = ethnic_group
+  ) {
+ glue("{base_url}/{population_type_name}/UR/census-observations?area-type={area_type_id},{area_id}&dimensions={variable_id},{variable_id}")
+}
+
+test <- get_census_dataset()
+
 # custom_url <- glue("{base_url}/{all_usual_residents}/census-observations?area-type={lower_tier_las},{sheffield}&dimensions={ethnic_group},1,2")
 #
-# get_custom_dataset <- function(
-#     population_type_name = all_usual_residents,
-#     area_type = lower_tier_las,
-#     area_id = sheffield,
-#     variable_id = ethnic_group
-#   ) {
-#  glue("{base_url}/{population_type_name}/census-observations?area-type={area_type_id},{area_id}&dimensions={variable_id},{variable_id}")
-# }
 
 # Once all the required information has been collated to run the query, the query structure is
 # as follows: https://api.beta.ons.gov.uk/v1/population-types/{population-type-name}/censusobservations?area-type={area-type-id},{area-id}&dimensions={variable-id},{variable-id}
