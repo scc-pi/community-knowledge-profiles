@@ -27,6 +27,35 @@ The project has several factors that make it suitable for understanding RAP bett
 
 The expectation is that the notes in this document will mature and reside outside a pipeline specific repo and in a Council-wide resource such as [pinsheff](https://scc-pi.github.io/pinsheff/), a [Methods Manual](https://scc-pi.github.io/methods-manual/), or something like [Hackney's Data Platform Playbook](https://playbook.hackney.gov.uk/Data-Platform-Playbook/). 
 
+## Setup  
+
+Load packages and declare functions.
+
+```{r}
+#| label: setup
+
+library(renv)
+library(tidyverse)
+library(tools)
+library(jsonlite)
+library(janitor)
+library(kableExtra)
+library(here)
+
+# Output & format a data frame as a table
+table_style <- function(df, scroll_box = TRUE) {
+  df |> 
+    kbl(format.args = list(big.mark = ",")) |> 
+    kable_styling(
+      bootstrap_options = "striped",
+      full_width = F,
+      font_size = 12,
+      position = "left"
+    ) |>
+    (\(.) if(scroll_box) scroll_box(., height = "400px") else .)()
+}
+```
+
 # Packaging  
 
 A requirement of the [NHS Gold RAP - analysis as a product](https://nhsdigital.github.io/rap-community-of-practice/introduction_to_RAP/levels_of_RAP/#the-levels-of-rap-maturity-framework) is:  
@@ -116,6 +145,8 @@ If you add or remove packages from the CKP project (in a repo on your laptop or 
 
 ![](../resources/renv-rstudio.png)
 
+See @sec-explore-renv for a deeper look at {renv} and our project dependencies.
+
 ## Docker
 
 *TODO*
@@ -185,5 +216,173 @@ To render the RAP Learning Quarto (`rap-docs\rap-learning.qmd`) to GitHub Pages 
 # Version Control
 
 *TODO*
+
+# Explore {renv} {#sec-explore-renv}
+
+## Lock file
+
+Our `renv.lock` file includes a lot of packages. We've not used {[renv](https://rstudio.github.io/renv/articles/renv.html)} before, so we need to check that the `renv.lock` file is right and that we're using {renv} correctly.
+
+```{r}
+#| label: renv-lock
+
+# Convert the renv.lock json file to a data frame
+renv_lock <- fromJSON(here("renv.lock"))$Packages |> 
+  enframe() |> 
+  as_tibble() |> 
+  unnest_wider(value) |> 
+  clean_names() |> 
+  select(-name, -hash)
+
+table_style(renv_lock)
+```
+ 
+|  
+| There are `r nrow(renv_lock)` packages listed in our `renv.lock` file.
+ 
+## Base R packages 
+
+{renv} does not install or maintain your R version, it just makes a note of it in the `renv.lock` file.  
+
+### All base packages  
+
+What are the base packages for our `R.Version()`? Some base R packages are loaded on startup, other base packages need to be explicitly loaded.
+
+```{r}
+#| label: base-all
+
+base_all <- rownames(installed.packages(priority = "base")) |> 
+  as_tibble() |> 
+  rename(package = value) |> 
+  distinct() #FUDGE: duplicates packages when rendered via Quarto,
+# but not when run interactively in RStudio
+
+table_style(base_all)
+```
+
+|  
+| There are `r nrow(base_all)` base R packages.  
+
+### Loaded on startup
+
+What are the base R packages loaded on startup? i.e. packages you do not need to explicitly load.  
+
+```{r}
+#| label: base-loaded
+
+base_loaded <- c(getOption("defaultPackages"), "base") |> 
+  as_tibble() |> 
+  rename(package = value)
+
+table_style(base_loaded, scroll_box = FALSE)
+```
+
+There are `r nrow(base_loaded)` base R packages loaded on startup.  
+
+
+### Not loaded on startup  
+
+What are the base R packages not loaded on startup? i.e. packages you may need to explicitly load. 
+
+```{r}
+#| label: base-not-loaded
+
+base_not_loaded <- base_all |> 
+  anti_join(base_loaded, by = "package")
+
+table_style(base_not_loaded, scroll_box = FALSE)
+```
+
+There are `r nrow(base_not_loaded)` base R packages not loaded on startup.  
+
+## Explicitly loaded  
+
+Packages explicitly loaded from the library by scripts in this project.
+
+```{r}
+#| label: explicit
+
+explicit <- dependencies(here(), progress = FALSE) |> 
+  clean_names() |> 
+  select(package, source)
+
+table_style(explicit)
+```
+
+|  
+| Unique list of packages, irrespective of whether the package has been called by multiple scripts.
+
+```{r}
+#| label: unique-explicit
+
+unique_explicit <- explicit |> 
+  select(package) |> 
+  distinct()
+
+table_style(unique_explicit)
+```
+
+|  
+| There are `r nrow(unique_explicit)` packages explicitly loaded from the library by scripts in this project.  
+
+## Implicitly loaded  
+
+"Implicit" packages that the explicitly loaded packages depend upon.  
+
+```{r}  
+#| label: implicit
+
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+# I think this makes a call to CRAN
+implicit <- package_dependencies( 
+  packages = pull(unique_explicit, package),
+  recursive = TRUE
+) |> 
+  enframe() |> 
+  as_tibble() |> 
+  unnest_longer(value) |> 
+  rename(explicit = name, implicit = value)
+
+#options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+table_style(implicit)
+```
+
+|  
+| Unique list of implicit packages.
+
+```{r}
+#| label: unique-implicit
+
+# Exclude explicit and base R packages
+unique_implicit <- implicit |> 
+  select(implicit) |> 
+  distinct() |> 
+  anti_join(explicit, by = join_by(implicit == package)) |> 
+  anti_join(base_all, by = join_by(implicit == package))
+
+table_style(unique_implicit)
+```
+
+|  
+| Excluding base R packages, there are `r nrow(unique_implicit)` packages required by library packages explicitly loaded by scripts in this project.  
+
+## Conclusion  
+
+The sum of explicit and implicit packages is `r nrow(unique_explicit) + nrow(unique_implicit)`. This compares with `r nrow(renv_lock)` packages listed in the `renv.lock` file. 
+
+This is close enough.
+
+## Diagnostics
+
+{renv} diagnostics report.  
+
+```{r}
+#| label: diagnostics
+#| warning: false
+diagnostics()
+```
+
 
 
