@@ -181,7 +181,7 @@ And, the following [Reproducible Analysis Platform](https://analysisfunction.civ
 
 ## Render RAP Learning Quarto
 
-To render the RAP Learning Quarto (`rap-docs\rap-learning.qmd`) to GitHub Pages at [scc-pi.github.io/community-knowledge-profiles](https://scc-pi.github.io/community-knowledge-profiles/) we used the public GitHub repo [quarto-dev/quarto-actions](https://github.com/quarto-dev/quarto-actions), In particular we followed the:
+To render the RAP Learning Quarto (`rap-docs\rap-learning.qmd`) to GitHub Pages at [scc-pi.github.io/community-knowledge-profiles](https://scc-pi.github.io/community-knowledge-profiles/) we used the public GitHub repo [quarto-dev/quarto-actions](https://github.com/quarto-dev/quarto-actions). In particular we followed the:
 
 1. [Basic example](https://github.com/quarto-dev/quarto-actions/blob/main/examples/example-01-basics.md)  
     Added `quarto-publish.yml` to `.github\workflows`.
