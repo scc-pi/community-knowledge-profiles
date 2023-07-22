@@ -51,9 +51,6 @@ jobs:
         
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
-        
-      - name: Render CKP PDFs
-        run: Rscript R/render-reports.R
 
       - name: Publish to GitHub Pages (and render)
         uses: quarto-dev/quarto-actions/publish@v2
@@ -62,3 +59,6 @@ jobs:
           path: rap-docs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this secret is always available for github actions
+          
+      - name: Render CKP PDFs
+        run: Rscript R/render-reports.R
